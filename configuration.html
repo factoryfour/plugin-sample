@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Fusiform Orders Plugin: Configuration</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<style>
+			
+			/* desert scheme ported from vim to google prettify */
+pre.prettyprint { display: block; background-color: none; border: none; }
+pre .nocode { background-color: none; color: #000 }
+pre .str { color: #ffa0a0 } /* string  - pink */
+pre .kwd { color: #f0e68c; font-weight: bold }
+pre .com { color: #87ceeb } /* comment - skyblue */
+pre .typ { color: #98fb98 } /* type    - lightgreen */
+pre .lit { color: #cd5c5c } /* literal - darkred */
+pre .pun { color: #fff }    /* punctuation */
+pre .pln { color: #fff }    /* plaintext */
+pre .tag { color: #f0e68c; font-weight: bold } /* html/xml tag    - lightyellow */
+pre .atn { color: #bdb76b; font-weight: bold } /* attribute name  - khaki */
+pre .atv { color: #ffa0a0 } /* attribute value - pink */
+pre .dec { color: #98fb98 } /* decimal         - lightgreen */
+
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums { margin-top: 0; margin-bottom: 0; color: #AEAEAE } /* IE indents via margin-left */
+li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8 { list-style-type: none }
+/* Alternate shading for lines */
+li.L1,li.L3,li.L5,li.L7,li.L9 { }
+
+@media print {
+  pre.prettyprint { background-color: none; border: none; }
+  pre .str, code .str { color: #060 }
+  pre .kwd, code .kwd { color: #006; font-weight: bold }
+  pre .com, code .com { color: #600; font-style: italic }
+  pre .typ, code .typ { color: #404; font-weight: bold }
+  pre .lit, code .lit { color: #044 }
+  pre .pun, code .pun { color: #440 }
+  pre .pln, code .pln { color: #000 }
+  pre .tag, code .tag { color: #006; font-weight: bold }
+  pre .atn, code .atn { color: #404 }
+  pre .atv, code .atv { color: #060 }
+}
+		</style>
+	</head>
+	<body>
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Fusiform Orders Plugin</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								<li><a href="index.html">Home</a></li>
+								<li><a href="generic.html">Generic</a></li>
+								<li><a href="elements.html">Elements</a></li>
+								<li><a href="#">Log In</a></li>
+								<li><a href="#">Sign Up</a></li>
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>Configuring Your Account</h2>
+								<p>Developer Instructions for using the Orders Plugin.</p>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+									<p>The API requests for the following configuration are included in a Postman collection. </p>
+									<p>
+										<div class="postman-run-button"
+data-postman-action="collection/import"
+data-postman-var-1="e1244fc4099025b63ea0"
+data-postman-param="env%5BFusiform%20Plugin%5D=W3siZW5hYmxlZCI6dHJ1ZSwia2V5Ijoib3JnSWQiLCJ2YWx1ZSI6IiIsInR5cGUiOiJ0ZXh0In0seyJlbmFibGVkIjp0cnVlLCJrZXkiOiJ1c2VybmFtZSIsInZhbHVlIjoiIiwidHlwZSI6InRleHQifSx7ImVuYWJsZWQiOnRydWUsImtleSI6InBhc3N3b3JkIiwidmFsdWUiOiIiLCJ0eXBlIjoidGV4dCJ9XQ=="										>
+										</div>
+									</p>
+									<p>Importing the collection will add a new environment (<code>Fusiform Plugin</code>) to your Postman application, which you can use to configure the authentication for making requests to the API. Set your Postman environment variables to include your <code>username</code>, <code>password</code>, and organization ID (<code>orgId</code>)</p>
+									
+									<p>FusiformCAST and the Fusiform orders plugin uses the FactoryFour API for its backend services. Throughout this configuration, you'll see references to <code>https://api.factoryfour.com</code>, which is where Fusiform resrouces are stored.</p>
+									<section id="authentication">
+										<h2 class="major">Authentication</h2>
+										<p>FactoryFour authentication is completed through the Auth0 API (<code>https://factoryfour.auth0.com</code>). An example authentication request is included in the Postman Collection, however all other requests are preconfigured to automatically authenticate if the environment has been configured correctly.</p>
+										<p>The authentication request is a <b>POST</b> to the url <code>https://factoryfour.auth0.com/oauth/token</code></p>
+<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">//Example Request Body
+{
+  &quot;grant_type&quot;: &quot;password&quot;, //Required value for all organizations and requests
+  &quot;client_id&quot;: &quot;EROxMPqTUoZE21q6xD6CDnPLt2maGy6o&quot;, //Required value for all organizations and requests
+  &quot;username&quot;: &quot;{{username}}&quot;,
+  &quot;password&quot;: &quot;{{password}}&quot;,
+  &quot;connection&quot;: &quot;FactoryFour-Production&quot;, //Required value for all organizations and requests
+  &quot;scope&quot;: &quot;openid email&quot; //Required value for all organizations and requests
+}</code></pre>
+<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">//Example Response Body
+{
+  &quot;access_token&quot;: &quot;value&quot;;, //Unnecessary token
+  &quot;id_token&quot;: &quot;{{token}}&quot;, // API token
+  &quot;expires_in&quot;: 86400,
+  &quot;token_type&quot;: &quot;Bearer&quot;
+}</code></pre>
+										<p>The <code>id_token</code> field in the response is what will be used to make authenticated requests to the FactoryFour API. For authenticated reqeusts, set the authorization header to <code>Bearer <span style="color:#ff9d00;">{{token}}</span></code>.</p>
+									</section>
+									<section id="domains">
+										<h2 class="major">Domain Whitelisting</h2>
+										<p>Requests from the plugin are only allowed from certain domain origins. To use the plugin on your website, you will need to specify the domains that requests will be coming from.</p>
+										<p>If you're trying to run the plugin in your website, hosted at <code>https://shop.fusiform.co</code>, the domain to add to the whitelist is <code>https://shop.fusiform.co</code></p>
+
+										<h3>Updating</h3>
+										<p>Use the <b>Update Configuration</b> request in the <b>Portal Configuration</b> folder of Postman collection.</p>
+										<p>To update the domain whitelist make an authenticated <b>PUT</b> request to <code>https://api.factoryfour.com/portal/<span style="color:#ff9d00;">{orgId}</span>/configure</code>. The body of the request must be a JSON object, and has two keys <code>whiteList</code> and <code>overwrite</code>.</p>
+
+										<p><code>whiteList</code> is <i>required</i> and is a array of string values that list the domains origins to accept requests from. By default, this will append values to any existing entries in the whiteList.</p>
+										<p><code>overwrite</code> is <i>optional</i> and is a boolean to replace all entries in the existing whitelist with the ones in the current request body.</p>
+<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">//Example Request Body
+{
+  &quot;whiteList&quot;: [&quot;http://localhost:8000&quot;, &quot;http://shop.fusiform.co&quot;],
+  &quot;overwrite&quot;: true
+}</code></pre>
+<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">//Example Response Body
+{
+    &quot;data&quot;: {
+        &quot;orgId&quot;: &quot;{orgId}&quot;,
+        &quot;whiteList&quot;: [
+            &quot;http://localhost:8000&quot;,
+            &quot;http://shop.fusiform.co&quot;
+        ]
+    },
+    &quot;info&quot;: {
+        &quot;transactionId&quot;: &quot;0a9aa932-4a6e-4890-a146-662425fc34ee&quot;,
+        &quot;statusCode&quot;: 200,
+        &quot;url&quot;: &quot;/{orgId}/configure&quot;,
+        &quot;method&quot;: &quot;PUT&quot;,
+        &quot;message&quot;: &quot;Updated the portal&quot;
+    }
+}</code></pre>
+
+										<h3>Retrieving</h3>
+										<p>Use the <b>Retrieve Configuration</b> request in the <b>Portal Configuration</b> folder of the Postman collection.</p>
+										<p>To see the current domain whiteList, make an authenticated <b>GET</b> request to <code>https://api.factoryfour.com/portal/<span style="color:#ff9d00;">{orgId}</span>/configure</code>.</p>
+<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">//Example Response Body
+{
+    &quot;data&quot;: {
+        &quot;orgId&quot;: &quot;{orgId}&quot;,
+        &quot;whiteList&quot;: [
+            &quot;http://localhost:8000&quot;,
+            &quot;http://shop.fusiform.co&quot;
+        ]
+    },
+    &quot;info&quot;: {
+        &quot;transactionId&quot;: &quot;0a9aa932-4a6e-4890-a146-662425fc34ee&quot;,
+        &quot;statusCode&quot;: 200,
+        &quot;url&quot;: &quot;/{orgId}/configure&quot;,
+        &quot;method&quot;: &quot;GET&quot;,
+        &quot;message&quot;: &quot;Retrieved the portal&quot;
+    }
+}</code></pre>
+									</section>
+									<section id="devices">
+										<h2 class="major">Devices</h2>
+										<p>Devices are the products that are listed for distribution by your account. This request can be used to list all devices that the plugin can allow ordering from.</p>
+										<p>This request does not require authentication, but does require an <code>Origin</code> header, which can be set to one of the domains in the whitelist.
+										<p>To see the current devices, make a <b>GET</b> request to <code>https://api.factoryfour.com/devices/portal/<span style="color:#ff9d00;">{orgId}</span></code>.</p>
+<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">//Example Response Body
+{
+    &quot;data&quot;: [{
+        &quot;name&quot;: &quot;Name of Device&quot;,
+        ...
+    } ...],
+    &quot;info&quot;: {
+        &quot;transactionId&quot;: &quot;0a9aa932-4a6e-4890-a146-662425fc34ee&quot;,
+        &quot;statusCode&quot;: 200,
+        &quot;url&quot;: &quot;/{orgId}/configure&quot;,
+        &quot;method&quot;: &quot;GET&quot;,
+        &quot;message&quot;: &quot;Retrieved the portal&quot;
+    }
+}</code></pre>
+									</section>
+								</div>
+							</div>
+
+					</section>
+
+				<!-- Footer -->
+					
+
+			</div>
+			<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+			<script type="text/javascript">
+			(function (p,o,s,t,m,a,n) {
+			!p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });
+			!o.getElementById(s+t) && o.getElementsByTagName("head")[0].appendChild((
+			(n = o.createElement("script")),
+			(n.id = s+t), (n.async = 1), (n.src = m), n
+			));
+			}(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
+			</script>
+		<!-- Scripts -->
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
