@@ -1,0 +1,219 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Fusiform Orders Plugin: Configuration</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<style>
+			
+			/* desert scheme ported from vim to google prettify */
+pre.prettyprint { display: block; background-color: none; border: none; }
+pre .nocode { background-color: none; color: #000 }
+pre .str { color: #ffa0a0 } /* string  - pink */
+pre .kwd { color: #f0e68c; font-weight: bold }
+pre .com { color: #87ceeb } /* comment - skyblue */
+pre .typ { color: #98fb98 } /* type    - lightgreen */
+pre .lit { color: #cd5c5c } /* literal - darkred */
+pre .pun { color: #fff }    /* punctuation */
+pre .pln { color: #fff }    /* plaintext */
+pre .tag { color: #f0e68c; font-weight: bold } /* html/xml tag    - lightyellow */
+pre .atn { color: #bdb76b; font-weight: bold } /* attribute name  - khaki */
+pre .atv { color: #ffa0a0 } /* attribute value - pink */
+pre .dec { color: #98fb98 } /* decimal         - lightgreen */
+
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums { margin-top: 0; margin-bottom: 0; color: #AEAEAE } /* IE indents via margin-left */
+li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8 { list-style-type: none }
+/* Alternate shading for lines */
+li.L1,li.L3,li.L5,li.L7,li.L9 { }
+
+@media print {
+  pre.prettyprint { background-color: none; border: none; }
+  pre .str, code .str { color: #060 }
+  pre .kwd, code .kwd { color: #006; font-weight: bold }
+  pre .com, code .com { color: #600; font-style: italic }
+  pre .typ, code .typ { color: #404; font-weight: bold }
+  pre .lit, code .lit { color: #044 }
+  pre .pun, code .pun { color: #440 }
+  pre .pln, code .pln { color: #000 }
+  pre .tag, code .tag { color: #006; font-weight: bold }
+  pre .atn, code .atn { color: #404 }
+  pre .atv, code .atv { color: #060 }
+}
+		</style>
+	</head>
+	<body>
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">Fusiform Orders Plugin</a></h1>
+						<nav>
+							<a href="#menu">Menu</a>
+						</nav>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<div class="inner">
+							<h2>Menu</h2>
+							<ul class="links">
+								<li><a href="index.html">Home</a></li>
+								<li><a href="#authentication">Authentication</a></li>
+								<li><a href="#domains">Domains</a></li>
+								<li><a href="#devices">Devices</a></li>
+							</ul>
+							<a href="#" class="close">Close</a>
+						</div>
+					</nav>
+
+				<!-- Wrapper -->
+					<section id="wrapper">
+						<header>
+							<div class="inner">
+								<h2>Adding the Plugin to Your Website</h2>
+								<p>Developer Instructions for implementing the Orders Plugin.</p>
+							</div>
+						</header>
+
+						<!-- Content -->
+							<div class="wrapper">
+								<div class="inner">
+									<p>The Fusiform Orders plugin can be added to any website in as little as 6 lines of code. Options for activating the plugin include stock buttons and custom buttons.</p>
+									
+									<section id="script">
+										<h2 class="major">Importing the plugin</h2>
+										<p>The Fusiform plugin can be imported from the FactoryFour static CDN, (<code>https://static.factoryfour.com</code>). There are two options for importing the plugin: directly import as a script or asynchonously append to the DOM using a script.</p>
+										<h3>As a Script</h3>
+<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">&lt;script src=&quot;https://plugin.factoryfour.com/plugin.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+										<h3>Asynchronously</h3>
+<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">(function(w, d, f) {
+    function l() {
+        var s = d.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = f;
+        var x = d.getElementsByTagName('script')[0];
+        x.parentNode.insertBefore(s, x);
+    }
+    if (w.attachEvent) {
+        w.attachEvent('onload', l);
+    } else {
+        w.addEventListener('load', l, false);
+    }
+})(window, document, 'https://plugin.factoryfour.com/plugin.min.js');</code></pre>
+									</section>
+
+									<section id="settings">
+										<h2 class="major">Plugin Settings</h2>
+										<p>The plugin is configured with a globally set window object <code>window.castSettings</code>.</p>
+										<h3>Required Fields</h3>
+										<p>At a minimum the plugin must be configured with an <code>organizationId</code> (your vendor organization ID) and <code>app</code> (which will be set to Fusiform).</p>
+<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">window.castSettings = {
+	organizationId: '{Vendor Organization ID}',
+	app: 'fusiform'
+};</code></pre>
+										<h3>Preload User</h3>
+										<p>When implementing the plugin in the context of another application that has user authentication, you may be able to prefill the users information instead of using the plugin to capture the user data. These fields include <code>firstName</code>, <code>lastName</code>,<code>email</code>, and <code>phone</code>. Autofill user information by specifying a <code>getUser</code> method in castSettings page, that retrievs the information from a cookie or from the serverside. This function is asynchronous in the event a request must be made to fetch user information.</p>
+<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">window.castSettings = {
+	organizationId: '59aeb7eb9c8a546c4b5ca570',
+	app: 'fusiform',
+	getUser: function getUser(callback) {
+		// Fetch user information here
+
+		//...
+
+		// Run callback to update plugin
+		return callback({
+			firstName: 'John',
+			lastName: 'Smith',
+			email: 'john@smith.com',
+			phone: '222-302-2019'
+		});
+	}
+};</code></pre>
+										<h3>Debug Mode</h3>
+										<p>During development, validation can be turned off by setting <code>debugMode</code> to true. This turns off validation for the user data entry views and the form views to quickly test order submission. <span style="color: red;">WARNING: make sure to not include or set debug mode to false before deploying.</span></p>
+<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">window.castSettings = {
+	organizationId: '59aeb7eb9c8a546c4b5ca570',
+	app: 'fusiform',
+	debugMode: true,
+};</code></pre>
+									</section>
+									
+									<section id="stock">
+										<h2 class="major">Standard Buttons</h2>
+										<div class="row">
+											<div class="col-md-6">
+									<span class="cast_button" invert devices="v2-90bb8b38-27ff-44c0-80d7-79a760acc87b"> </span>
+											</div>
+											<div class="col-md-6">
+<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">window.castSettings = {
+	organizationId: '59aeb7eb9c8a546c4b5ca570',
+	app: 'fusiform',
+	debugMode: true,
+};</code></pre>
+											</div>
+										</div>
+										<p>The plugin is configured with a globally set window object <code>window.castSettings</code>.</p>
+										<h3>Required Fields</h3>
+										<p>At a minimum the plugin must be configured with an <code>organizationId</code> (your vendor organization ID) and <code>app</code> (which will be set to Fusiform).</p>
+<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">window.castSettings = {
+	organizationId: '{Vendor Organization ID}',
+	app: 'fusiform'
+};</code></pre>
+										<h3>Preload User</h3>
+										<p>When implementing the plugin in the context of another application that has user authentication, you may be able to prefill the users information instead of using the plugin to capture the user data. These fields include <code>firstName</code>, <code>lastName</code>,<code>email</code>, and <code>phone</code>. Autofill user information by specifying a <code>getUser</code> method in castSettings page, that retrievs the information from a cookie or from the serverside. This function is asynchronous in the event a request must be made to fetch user information.</p>
+<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">window.castSettings = {
+	organizationId: '59aeb7eb9c8a546c4b5ca570',
+	app: 'fusiform',
+	getUser: function getUser(callback) {
+		// Fetch user information here
+
+		//...
+
+		// Run callback to update plugin
+		return callback({
+			firstName: 'John',
+			lastName: 'Smith',
+			email: 'john@smith.com',
+			phone: '222-302-2019'
+		});
+	}
+};</code></pre>
+									</section>
+
+				<!-- Footer -->
+					
+
+			</div>
+			<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+			<script>
+			window.castSettings = {
+				organizationId: '591de7f5a55e08e637a74686',
+				app: 'fusiform',
+				debugMode: true
+			};
+			</script>
+			<script type="text/javascript" src="import.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
