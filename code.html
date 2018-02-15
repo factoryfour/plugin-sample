@@ -144,7 +144,7 @@ li.L1,li.L3,li.L5,li.L7,li.L9 { }
 	}
 };</code></pre>
 										<h3>Debug Mode</h3>
-										<p>During development, validation can be turned off by setting <code>debugMode</code> to true. This turns off validation for the user data entry views and the form views to quickly test order submission. <span style="color: red;">WARNING: make sure to not include or set debug mode to false before deploying.</span></p>
+										<p>During development, validation can be turned off by setting <code>debugMode</code> to true. This turns off validation for the user data entry views and the form views to quickly test order submission. <span style="color: red;font-weight: bold;">WARNING: make sure to not include or set debug mode to false before deploying.</span></p>
 <pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">window.castSettings = {
 	organizationId: '59aeb7eb9c8a546c4b5ca570',
 	app: 'fusiform',
@@ -152,68 +152,84 @@ li.L1,li.L3,li.L5,li.L7,li.L9 { }
 };</code></pre>
 									</section>
 									
-							<section id="code" class="wrapper alt spotlight">
-								<div class="inner">
-									<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">&lt;span class=&quot;cast_button&quot;
-devices=&quot;v2-90bb8b38-27ff-44c0-80d7-79a760acc87b&quot; /&gt;
-
-&lt;script&gt;
-window.castSettings = {
-	organizationId: '591de7f5a55e08e637a74686',
-	app: 'fusiform'
-};
-&lt;/script&gt;
-&lt;script src=&quot;https://plugin.factoryfour.com&quot;&gt;&lt;/script&gt;</code></pre>
-									<div class="content">
-										<h2 class="major">2. Add the Code</h2>
-										<p>As plugin.</p>
-										<a href="code.html" class="special">Developer Information</a>
-									</div>
-								</div>
-							</section>
 									<section id="stock">
-										<h2 class="major">Standard Buttons</h2>
-										<div class="row">
-											<div class="col-md-6">
-<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">window.castSettings = {
-	organizationId: '59aeb7eb9c8a546c4b5ca570',
-	app: 'fusiform',
-	debugMode: true,
-};</code></pre>
-											</div>
-											<div class="col-md-6" style="float: right; height: 100%; vertical-align:middle;">
-												<span class="cast_button" invert devices="v2-90bb8b38-27ff-44c0-80d7-79a760acc87b"> </span>
-											</div>
-										</div>
-										<p>The plugin is configured with a globally set window object <code>window.castSettings</code>.</p>
-										<h3>Required Fields</h3>
-										<p>At a minimum the plugin must be configured with an <code>organizationId</code> (your vendor organization ID) and <code>app</code> (which will be set to Fusiform).</p>
-<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">window.castSettings = {
-	organizationId: '{Vendor Organization ID}',
-	app: 'fusiform'
-};</code></pre>
-										<h3>Preload User</h3>
-										<p>When implementing the plugin in the context of another application that has user authentication, you may be able to prefill the users information instead of using the plugin to capture the user data. These fields include <code>firstName</code>, <code>lastName</code>,<code>email</code>, and <code>phone</code>. Autofill user information by specifying a <code>getUser</code> method in castSettings page, that retrievs the information from a cookie or from the serverside. This function is asynchronous in the event a request must be made to fetch user information.</p>
-<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">window.castSettings = {
-	organizationId: '59aeb7eb9c8a546c4b5ca570',
-	app: 'fusiform',
-	getUser: function getUser(callback) {
-		// Fetch user information here
+										<h2 class="major">Stock Buttons</h2>
+											<p>Stock buttons are placed into the DOM by the plugin script. The plugin searches for any element with the class <code>cast_button</code>. A required attribute of elements that contain the <code>cast_button</code> class is <code>devices</code> which should have a comma separated list of the devices this button should allow ordering from. To learn how to list all devices your account distributes, see the <a href="/configuration.html">Configuration Page</a>.</p>
+											<section id="code" class="wrapper spotlight none" style="margin:0;">
+												<div class="inner" style="padding-top: 10px;">
+<pre class="prettyprint" style="border: none;word-wrap: break-word; padding-left:2em;padding-right: 0;text-align:left;"><code class="wrap" style="background-color: #333;">&lt;!-- Standard --&gt;
 
-		//...
+&lt;span
+	class=&quot;cast_button&quot;
+	devices=&quot;v2-90bb8b38-27ff-44c0-80d7-79a760acc87b&quot;
+/&gt; 
 
-		// Run callback to update plugin
-		return callback({
-			firstName: 'John',
-			lastName: 'Smith',
-			email: 'john@smith.com',
-			phone: '222-302-2019'
-		});
-	}
-};</code></pre>
+</code></pre>
+													<div class="content">
+														<h2 class="major">Standard Button</h2>
+														<span class="cast_button" devices="v2-90bb8b38-27ff-44c0-80d7-79a760acc87b" />
+													</div>
+												</div>
+											</section>
+
+											<section id="code" class="wrapper alt spotlight none" style="margin:0;">
+												<div class="inner">
+<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">&lt;!-- Invert --&gt;
+
+&lt;span
+	class=&quot;cast_button&quot;
+	invert
+	devices=&quot;v2-90bb8b38-27ff-44c0-80d7-79a760acc87b&quot;
+/&gt;</code></pre>
+													<div class="content">
+														<h2 class="major">Inverted Button</h2>
+														<span class="cast_button" invert devices="v2-90bb8b38-27ff-44c0-80d7-79a760acc87b" />
+													</div>
+												</div>
+											</section>
 									</section>
 
-				<!-- Footer -->
+
+									<section id="stock">
+										<h2 class="major">Custom Buttons</h2>
+											<p>Any element can activate the plugin. Include the class <code>cast_custom</code> on any element, and the plugin will listen for onclick events to activate the plugin. You can style the element in any way. Devices for custom buttons are specified in the same way, using the <code>devices</code> attribute and a comma separated list of ids.</p>
+											<section id="code" class="wrapper spotlight none" style="margin:0;">
+												<div class="inner" style="padding-top: 10px;">
+<pre class="prettyprint" style="border: none;word-wrap: break-word; padding-left:2em;padding-right: 0;text-align:left;"><code class="wrap" style="background-color: #333;">&lt;!-- Button Element --&gt;
+
+&lt;button
+	class=&quot;cast_custom&quot;
+	devices=&quot;v2-90bb8b38-27ff-44c0-80d7-79a760acc87b&quot;
+&gt;
+Click to Activate
+&lt;/button&gt; 
+
+</code></pre>
+													<div class="content">
+														<h2 class="major">Button Element</h2>
+														<button class="cast_custom" devices="v2-90bb8b38-27ff-44c0-80d7-79a760acc87b">Click to Activate</button>
+													</div>
+												</div>
+											</section>
+
+											<section id="code" class="wrapper alt spotlight none" style="margin:0;">
+												<div class="inner">
+<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">&lt;!-- Anchor Element --&gt;
+
+&lt;a
+	class=&quot;cast_custom&quot;
+	devices=&quot;v2-90bb8b38-27ff-44c0-80d7-79a760acc87b&quot;
+/&gt;
+Click to Activate
+&lt;/a&gt;</code></pre>
+													<div class="content">
+														<h2 class="major">Anchor Element</h2>
+														<a class="cast_custom" invert devices="v2-90bb8b38-27ff-44c0-80d7-79a760acc87b">Click to Activate</a>
+													</div>
+												</div>
+											</section>
+									</section>
+
 					
 
 			</div>
