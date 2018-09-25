@@ -85,7 +85,7 @@ li.L1,li.L3,li.L5,li.L7,li.L9 { }
 							<h2>Fusiform Orders Plugin</h2>
 							<p>
 								<span style="padding-left: 6px;">Integrate the Fusiform ordering experience into your website</span>
-							<div style="margin-top: 12px;" class="cast_button" invert devices="5a53d77d26b6b12f8a2ce1ea"> </div></p>
+							<button class="cast_button" style="display: block; margin-top: 16px">Open Plugin</button></p>
 						</div>
 					</section>
 
@@ -107,19 +107,25 @@ li.L1,li.L3,li.L5,li.L7,li.L9 { }
 						<!-- Two -->
 							<section id="code" class="wrapper alt spotlight style2">
 								<div class="inner">
-<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">&lt;span class=&quot;cast_button&quot;
-devices=&quot;5a53d77d26b6b12f8a2ce1ea&quot; /&gt;
+<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">&lt;span class=&quot;cast_button&quot; /&gt;
 
 &lt;script&gt;
 window.castSettings = {
 	organizationId: '591de7f5a55e08e637a74686',
-	app: 'fusiform'
+	app: 'fusiform',
+	devices: ['v2-d47c89a8-73e9-4f7c-9a4f-679d2862ed22'],
 };
+window.addEventListener('click', (event) => {
+	if (event.srcElement.className === 'cast_button') {
+		window.openPlugin(window.castSettings);
+	}
+});
 &lt;/script&gt;
-&lt;script src=&quot;https://plugin.factoryfour.com&quot;&gt;&lt;/script&gt;</code></pre>
+&lt;script src=&quot;https://plugin.factoryfour.com/
+factoryfour-orders-plugin.min.js&quot;&gt;&lt;/script&gt;</code></pre>
 									<div class="content">
 										<h2 class="major">2. Add the Code</h2>
-										<p>As little as <b>6</b> lines of code added to your website allows the plugin to create an immersive ordering experience. Use a standard button or your own buttons to activate the plugin.</p>
+										<p>As little as <b>10</b> lines of code added to your website allows the plugin to create an immersive ordering experience. Use a standard button or your own buttons to activate the plugin.</p>
 										<a href="code.html" class="special">Developer Information</a>
 									</div>
 								</div>
@@ -216,12 +222,20 @@ window.castSettings = {
 			<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 			<!-- Scripts -->
 			<script>
+				// Production version
 			window.castSettings = {
 				organizationId: '591de7f5a55e08e637a74686',
-				app: 'fusiform'
+				app: 'fusiform',
+				devices: ['v2-d47c89a8-73e9-4f7c-9a4f-679d2862ed22'],
 			};
+			window.addEventListener('click', (event) => {
+				if (event.srcElement.className === 'cast_button') {
+					// Open the plugin based on the config
+					window.openPlugin(window.castSettings);
+				}
+			});
 			</script>
-			<script src="https://plugin.factoryfour.com/plugin.min.js"></script>
+			<script src="https://plugin.factoryfour.com/factoryfour-orders-plugin.min.js"></script>
 			<script src="assets/js/skel.min.js"></script>
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.scrollex.min.js"></script>
