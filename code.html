@@ -91,13 +91,13 @@ li.L1,li.L3,li.L5,li.L7,li.L9 { }
 						<!-- Content -->
 							<div class="wrapper">
 								<div class="inner">
-									<p>The Fusiform Orders plugin can be added to any website in as little as 6 lines of code. Options for activating the plugin include stock buttons and custom buttons.</p>
+									<p>The Fusiform Orders plugin can be added to any website in as little as 10 lines of code. Because the plugin operates through a global window method, any element of the website can be configured to activate the plugin.</p>
 									
 									<section id="script">
 										<h2 class="major">Importing the plugin</h2>
 										<p>The Fusiform plugin can be imported from the FactoryFour static CDN, (<code>https://static.factoryfour.com</code>). There are two options for importing the plugin: directly import as a script or asynchonously append to the DOM using a script.</p>
 										<h3>As a Script</h3>
-<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">&lt;script src=&quot;https://plugin.factoryfour.com/plugin.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">&lt;script src=&quot;https://plugin.factoryfour.com/factoryfour-orders-plugin.min.js&quot;&gt;&lt;/script&gt;</code></pre>
 										<h3>Asynchronously</h3>
 <pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">(function(w, d, f) {
     function l() {
@@ -113,119 +113,76 @@ li.L1,li.L3,li.L5,li.L7,li.L9 { }
     } else {
         w.addEventListener('load', l, false);
     }
-})(window, document, 'https://plugin.factoryfour.com/plugin.min.js');</code></pre>
+})(window, document, 'https://plugin.factoryfour.com/factoryfour-orders-plugin.min.js');</code></pre>
 									</section>
 
 									<section id="settings">
 										<h2 class="major">Plugin Settings</h2>
-										<p>The plugin is configured with a globally set window object <code>window.castSettings</code>.</p>
+										<p>The plugin is configured with the following required fields.</p>
 										<h3>Required Fields</h3>
-										<p>At a minimum the plugin must be configured with an <code>organizationId</code> (your vendor organization ID) and <code>app</code> (which will be set to Fusiform).</p>
+										<p>At a minimum the plugin must be configured with an <code>organizationId</code> (your vendor organization ID) and <code>app</code> (which will be set to Fusiform)</p>
+										<h3>Devices</h3>
+										<p>By default, the plugin will display all available devices with the target organization. If only a subset of devices is desired in the plugin, include an array of the desired device ids in the configuration object as shown below.</p>
 <pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">window.castSettings = {
 	organizationId: '{Vendor Organization ID}',
-	app: 'fusiform'
-};</code></pre>
-										<h3>Preload User</h3>
-										<p>When implementing the plugin in the context of another application that has user authentication, you may be able to prefill the users information instead of using the plugin to capture the user data. These fields include <code>firstName</code>, <code>lastName</code>,<code>email</code>, and <code>phone</code>. Autofill user information by specifying a <code>getUser</code> method in castSettings page, that retrievs the information from a cookie or from the serverside. This function is asynchronous in the event a request must be made to fetch user information.</p>
-<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">window.castSettings = {
-	organizationId: '59aeb7eb9c8a546c4b5ca570',
 	app: 'fusiform',
-	getUser: function getUser(callback) {
-		// Fetch user information here
-
-		//...
-
-		// Run callback to update plugin
-		return callback({
-			firstName: 'John',
-			lastName: 'Smith',
-			email: 'john@smith.com',
-			phone: '222-302-2019'
-		});
-	}
+	devices: ['v2-d47c89a8-73e9-4f7c-9a4f-679d2862ed22'], // optional
 };</code></pre>
+<p>
+										<h3>Opening the plugin</h3>
+										<p>The imported script creates a global function on the window <code>window.openPlugin</code>. This function takes a single variable which is the configuration object described above. All it takes is running this method to open the plugin. This can be done in any number of ways. The method we recommend is to add an event listener to the window that listens for clicks on specific UI elements.
+										<pre class="prettyprint" style="border: none;word-wrap: break-word;">
+											<code class="wrap" style="background-color: #333;">
+window.castSettings = {
+	organizationId: '591de7f5a55e08e637a74686',
+	app: 'fusiform',
+	devices: ['v2-d47c89a8-73e9-4f7c-9a4f-679d2862ed22'],
+};
+window.addEventListener('click', (event) => {
+	if (event.srcElement.className === 'cast_button') {
+		// Open the plugin based on the config
+		window.openPlugin(window.castSettings);
+	}
+});
+											</code>
+										</pre>
 										<h3>Debug Mode</h3>
 										<p>During development, validation can be turned off by setting <code>debugMode</code> to true. This turns off validation for the user data entry views and the form views to quickly test order submission. <span style="color: red;font-weight: bold;">WARNING: make sure to not include or set debug mode to false before deploying.</span></p>
 <pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">window.castSettings = {
 	organizationId: '59aeb7eb9c8a546c4b5ca570',
 	app: 'fusiform',
+	devices: ['v2-d47c89a8-73e9-4f7c-9a4f-679d2862ed22'],
 	debugMode: true,
 };</code></pre>
 									</section>
-									
-									<section id="stock">
-										<h2 class="major">Stock Buttons</h2>
-											<p>Stock buttons are placed into the DOM by the plugin script. The plugin searches for any element with the class <code>cast_button</code>. A required attribute of elements that contain the <code>cast_button</code> class is <code>devices</code> which should have a comma separated list of the devices this button should allow ordering from. To learn how to list all devices your account distributes, see the <a href="/configuration.html">Configuration Page</a>.</p>
-											<section id="code" class="wrapper spotlight none" style="margin:0;">
-												<div class="inner" style="padding-top: 10px;">
-<pre class="prettyprint" style="border: none;word-wrap: break-word; padding-left:2em;padding-right: 0;text-align:left;"><code class="wrap" style="background-color: #333;">&lt;!-- Standard --&gt;
-
-&lt;span
-	class=&quot;cast_button&quot;
-	devices=&quot;v2-90bb8b38-27ff-44c0-80d7-79a760acc87b&quot;
-/&gt; 
-
-</code></pre>
-													<div class="content">
-														<h2 class="major">Standard Button</h2>
-														<span class="cast_button" devices="5a53d77d26b6b12f8a2ce1ea" />
-													</div>
-												</div>
-											</section>
-
-											<section id="code" class="wrapper alt spotlight none" style="margin:0;">
-												<div class="inner">
-<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">&lt;!-- Invert --&gt;
-
-&lt;span
-	class=&quot;cast_button&quot;
-	invert
-	devices=&quot;v2-90bb8b38-27ff-44c0-80d7-79a760acc87b&quot;
-/&gt;</code></pre>
-													<div class="content">
-														<h2 class="major">Inverted Button</h2>
-														<span class="cast_button" invert devices="5a53d77d26b6b12f8a2ce1ea" />
-													</div>
-												</div>
-											</section>
-									</section>
-
-
 									<section id="custom">
-										<h2 class="major">Custom Buttons</h2>
-											<p>Any element can activate the plugin. Include the class <code>cast_custom</code> on any element, and the plugin will listen for onclick events to activate the plugin. You can style the element in any way. Devices for custom buttons are specified in the same way, using the <code>devices</code> attribute and a comma separated list of ids.</p>
+										<h2 class="major">Examples</h2>
 											<section id="code" class="wrapper spotlight none" style="margin:0;">
 												<div class="inner" style="padding-top: 10px;">
-<pre class="prettyprint" style="border: none;word-wrap: break-word; padding-left:2em;padding-right: 0;text-align:left;"><code class="wrap" style="background-color: #333;">&lt;!-- Button Element --&gt;
+<pre class="prettyprint" style="border: none;word-wrap: break-word; padding-left:0em;padding-right: 2em;text-align:left; min-width: 600px;"><code class="wrap" style="background-color: #333;">&lt;!-- Button Element --&gt;
 
-&lt;button
-	class=&quot;cast_custom&quot;
-	devices=&quot;v2-90bb8b38-27ff-44c0-80d7-79a760acc87b&quot;
-&gt;
-Click to Activate
+&lt;button class=&quot;cast_button&quot;&gt;
+  Click to Activate
 &lt;/button&gt; 
 
 </code></pre>
 													<div class="content">
 														<h2 class="major">Button Element</h2>
-														<button class="cast_custom" devices="5a53d77d26b6b12f8a2ce1ea">Click to Activate</button>
+														<button class="cast_button" devices="5a53d77d26b6b12f8a2ce1ea">Click to Activate</button>
 													</div>
 												</div>
 											</section>
 
 											<section id="code" class="wrapper alt spotlight none" style="margin:0;">
 												<div class="inner">
-<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">&lt;!-- Anchor Element --&gt;
+<pre class="prettyprint" style="border: none;word-wrap: break-word; padding-left:2em;"><code class="wrap" style="background-color: #333; min-width: 600px; text-align: left;">&lt;!-- Anchor Element --&gt;
 
-&lt;a
-	class=&quot;cast_custom&quot;
-	devices=&quot;v2-90bb8b38-27ff-44c0-80d7-79a760acc87b&quot;
-/&gt;
-Click to Activate
+&lt;a class=&quot;cast_button&quot;&gt;
+  Click to Activate
 &lt;/a&gt;</code></pre>
 													<div class="content">
 														<h2 class="major">Anchor Element</h2>
-														<a class="cast_custom" invert devices="5a53d77d26b6b12f8a2ce1ea">Click to Activate</a>
+														<a class="cast_button" invert devices="5a53d77d26b6b12f8a2ce1ea">Click to Activate</a>
 													</div>
 												</div>
 											</section>
@@ -240,6 +197,7 @@ Click to Activate
 			window.castSettings = {
 				organizationId: '591de7f5a55e08e637a74686',
 				app: 'fusiform',
+				devices: ['v2-d47c89a8-73e9-4f7c-9a4f-679d2862ed22', 'v2-ce7feb0a-b0d4-4dec-bddb-15e34bfa8e44'],
 				debugMode: true
 			};
 			</script>
