@@ -119,16 +119,35 @@ li.L1,li.L3,li.L5,li.L7,li.L9 { }
 										<h2 class="major">Plugin Settings</h2>
 										<p>The plugin is configured with the following required fields.</p>
 										<h3>Required Fields</h3>
-										<p>At a minimum the plugin must be configured with an <code>organizationId</code> (your vendor organization ID) and <code>app</code> (which will be set to Fusiform)</p>
+										<p>At a minimum the plugin must be configured with an <code>organizationId</code> (your vendor organization ID) and <code>app</code> (which will be set to fusiform or factoryfour)</p>
 										<h3>Devices</h3>
-										<p>By default, the plugin will display all available devices with the target organization. If only a subset of devices is desired in the plugin, include an array of the desired device ids in the configuration object as shown below.</p>
+										<p>By default, the plugin will display all available devices with the target organization. If only a subset of devices is desired in the plugin, include an array of the desired device ids in the configuration object as shown below. If only one device is provided, the plugin will immediately open to the user signup page.</p>
 <pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">window.castSettings = {
 	organizationId: '{Vendor Organization ID}',
 	app: 'fusiform',
 	devices: ['v2-d47c89a8-73e9-4f7c-9a4f-679d2862ed22'], // optional
 };</code></pre>
-<p>
-										<h3>Opening the plugin</h3>
+										<h3>User Profile</h3>
+										<p>To save users the step of signing up with their name and email, the current user profile can be passed to the plugin directly. The signup page will be skipped, and that user information will be passed through when the order is submitted. The required fields are firstName, lastName, and email. If any one of these fields is missing, the user will have to enter in their information manually.</p>
+<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">window.castSettings = {
+	organizationId: '{Vendor Organization ID}',
+	app: 'fusiform',
+	userProfile: {
+		firstName: 'John',
+		lastName: 'Doe',
+		email: 'john.doe@email.com',
+	}
+};</code></pre>
+										<h3>Form Metadata</h3>
+										<p>Customers may have metadata that needs to be passed into their forms in order to provide specific functionality unique to their forms. Your customer service rep will work with you to provide the specific details on how this metadata needs to be structured for your specific implementation</p>
+<pre class="prettyprint" style="border: none;word-wrap: break-word;"><code class="wrap" style="background-color: #333;">window.castSettings = {
+	organizationId: '{Vendor Organization ID}',
+	app: 'fusiform',
+	metadata: {
+		additionalInfo: 'here',
+	}
+};</code></pre>
+ 										<h3>Opening the plugin</h3>
 										<p>The imported script creates a global function on the window <code>window.openPlugin</code>. This function takes a single variable which is the configuration object described above. All it takes is running this method to open the plugin. This can be done in any number of ways. The method we recommend is to add an event listener to the window that listens for clicks on specific UI elements.
 										<pre class="prettyprint" style="border: none;word-wrap: break-word;">
 											<code class="wrap" style="background-color: #333;">
