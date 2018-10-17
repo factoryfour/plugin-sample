@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<!--
+	Solid State by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Fusiform Orders Plugin</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<style>
+			
+			/* desert scheme ported from vim to google prettify */
+pre.prettyprint { display: block; background-color: none; border: none; }
+pre .nocode { background-color: none; color: #000 }
+pre .str { color: #ffa0a0 } /* string  - pink */
+pre .kwd { color: #f0e68c; font-weight: bold }
+pre .com { color: #87ceeb } /* comment - skyblue */
+pre .typ { color: #98fb98 } /* type    - lightgreen */
+pre .lit { color: #cd5c5c } /* literal - darkred */
+pre .pun { color: #fff }    /* punctuation */
+pre .pln { color: #fff }    /* plaintext */
+pre .tag { color: #f0e68c; font-weight: bold } /* html/xml tag    - lightyellow */
+pre .atn { color: #bdb76b; font-weight: bold } /* attribute name  - khaki */
+pre .atv { color: #ffa0a0 } /* attribute value - pink */
+pre .dec { color: #98fb98 } /* decimal         - lightgreen */
+
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums { margin-top: 0; margin-bottom: 0; color: #AEAEAE } /* IE indents via margin-left */
+li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8 { list-style-type: none }
+/* Alternate shading for lines */
+li.L1,li.L3,li.L5,li.L7,li.L9 { }
+
+@media print {
+  pre.prettyprint { background-color: none; border: none; }
+  pre .str, code .str { color: #060 }
+  pre .kwd, code .kwd { color: #006; font-weight: bold }
+  pre .com, code .com { color: #600; font-style: italic }
+  pre .typ, code .typ { color: #404; font-weight: bold }
+  pre .lit, code .lit { color: #044 }
+  pre .pun, code .pun { color: #440 }
+  pre .pln, code .pln { color: #000 }
+  pre .tag, code .tag { color: #006; font-weight: bold }
+  pre .atn, code .atn { color: #404 }
+  pre .atv, code .atv { color: #060 }
+}
+		</style>
+	</head>
+	<body>
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header" class="alt">
+						<h1><a href="/">Fusiform Orders Plugin (Staging) Environment)</a></h1>
+					</header>
+
+				<!-- Banner -->
+					<section id="banner" style="padding: 4.75em 0 4.75em 0;">
+						<div class="inner">
+							<div class="logo"><span class="icon fa-folder-open"></span></div>
+							<h2>Plugin Staging Environment</h2>
+							<p>
+								<span style="padding-left: 6px;">Enter the config you would like to test</span>
+							</p>
+							<textarea id="config" rows="7">
+{
+	"organizationId": "591de7f5a55e08e637a74686",
+	"app": "fusiform",
+	"devices": ["v2-8a5b9001-e61d-4655-bc1a-840340a3e57c"]
+}
+							</textarea>
+							<button class="cast_button" style="display: block; margin-top: 16px">Open Plugin</button>
+						</div>
+					</section>
+
+			</div>
+			<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+			<!-- Scripts -->
+			<script>
+				// Development version
+				window.castSettings = {
+					organizationId: '591de7f5a55e08e637a74686',
+					app: 'fusiform',
+					devices: ['v2-8a5b9001-e61d-4655-bc1a-840340a3e57c'],
+				};
+				window.addEventListener('click', (event) => {
+					if (event.srcElement.className === 'cast_button') {
+						// Open the plugin based on the config
+						window.openPlugin(window.castSettings);
+					}
+				});
+				document.getElementById('config').addEventListener('input', (event) => {
+					try {
+						window.castSettings = JSON.parse(event.target.value);
+					} catch (e) {
+						// Do nothing. Nothing is needed
+					}
+				});
+			</script>
+			<script src="https://staging-plugin.factoryfour.com/factoryfour-orders-plugin.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
